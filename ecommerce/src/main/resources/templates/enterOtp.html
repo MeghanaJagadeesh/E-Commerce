@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>OTP Verification</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+		}
+
+		body {
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100vh;
+			background-color: #f0f0f0;
+		}
+
+		.container {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100%;
+		}
+
+		.box {
+			background-color: #fff;
+			padding: 40px;
+			border-radius: 10px;
+			box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+			text-align: center;
+		}
+
+		h2 {
+			margin-bottom: 30px;
+			color: #333;
+			font-size: 28px;
+		}
+
+		.otp-form {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		.otp-input {
+			position: relative;
+			margin-bottom: 30px;
+		}
+
+		input[type="text"] {
+			width: 200px;
+			padding: 15px 10px 15px 90px;
+			border: none;
+			border-bottom: 2px solid #ccc;
+			background-color: transparent;
+			font-size: 18px;
+			outline: none;
+			transition: border-color 0.3s ease;
+		}
+
+		input[type="text"]:focus {
+			border-color: #4caf50;
+		}
+
+		.otp-label {
+			position: absolute;
+			top: 0;
+			left: 0;
+			padding: 15px 10px;
+			pointer-events: none;
+			transition: 0.3s ease;
+			color: #aaa;
+			z-index: -1;
+		}
+
+		input[type="text"]:focus+.otp-label,
+		input[type="text"]:not(:placeholder-shown)+.otp-label {
+			top: 18px;
+			left: 0;
+			padding: 0;
+			font-size: 14px;
+			color: #4caf50;
+			font-weight: bold;
+			z-index: 1;
+		}
+
+		.submit-button {
+			padding: 15px 40px;
+			font-size: 18px;
+			border: none;
+			border-radius: 25px;
+			background-color: #4caf50;
+			color: white;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+		}
+
+		.submit-button:hover {
+			background-color: #45a049;
+		}
+
+		.resend-button {
+			padding: 15px 40px;
+			position: relative;
+			top: 10px;
+
+			font-size: 18px;
+			border: none;
+			border-radius: 25px;
+			background-color: #4caf50;
+			color: white;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+		}
+
+		.resend-button:hover {
+			background-color: #45a049;
+		}
+
+		.success-message {
+			display: none;
+			margin-top: 30px;
+			padding: 20px;
+			background-color: #dff0d8;
+			border: 1px solid #d6e9c6;
+			border-radius: 10px;
+			color: #3c763d;
+			font-size: 18px;
+		}
+
+		#error {
+			color: red;
+			font-size: medium;
+		}
+
+		#mesg {
+			color: green;
+			font-size: medium;
+		}
+	</style>
+	<script>
+
+		document.addEventListener("DOMContentLoaded", function () {
+			setTimeout(function () {
+				var mesg = document.querySelectorAll('.mesg')
+				mesg.forEach(function (element) {
+					element.style.display = 'none';
+				});
+			}, 2000);
+		});
+
+	</script>
+
+</head>
+
+<body>
+	<div class="container">
+		<div class="box">
+			<h2>Verify OTP</h2>
+			<form id="otpForm" class="otp-form" action="/customer/verify-otp" method="post">
+				<div th:text="${fail}" class="mesg" id="error"></div>
+				<div th:text="${pass}" class="mesg" id="mesg"></div>
+				<div class="otp-input">
+					<input type="text" id="otp" name="otp" maxlength="6" required>
+					<label for="otp" class="otp-label">Enter OTP</label>
+				</div>
+				<button type="submit" class="submit-button">Submit</button>
+				<button type="submit" class="resend-button">Resend Otp</button>
+				<input th:value="${id}" type="text" name="id" id="id" hidden>
+			</form>
+			<div id="successMessage" class="success-message">
+				<p>OTP Verified Successfully!</p>
+
+			</div>
+		</div>
+	</div>
+
+
+</body>
+
+</html>

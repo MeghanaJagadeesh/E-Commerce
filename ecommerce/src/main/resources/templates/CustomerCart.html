@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Shopping Cart</title>
+	<style>
+		*{
+			font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+		}
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			background-color: #f9f9f9;
+			color: #333;
+		}
+
+		.cart-container {
+			max-width: 1200px;
+			margin: 20px auto;
+			padding: 20px;
+			background-color: #fff;
+			border-radius: 8px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		}
+
+		h1 {
+			text-align: center;
+			margin-bottom: 20px;
+		}
+
+		.cart-table {
+			width: 100%;
+			border-collapse: collapse;
+			margin-bottom: 20px;
+		}
+
+		.cart-table th,
+		.cart-table td {
+			border: 1px solid #ddd;
+			padding: 12px;
+			text-align: left;
+		}
+
+		.cart-table th {
+			background-color: #f0f0f0;
+			font-weight: bold;
+		}
+
+		.cart-table img {
+			max-width: 80px;
+			height: auto;
+			display: block;
+			margin: auto;
+		}
+
+		input[type="number"] {
+			width: 50px;
+			padding: 8px;
+			border-radius: 4px;
+			border: 1px solid #ccc;
+		}
+
+		.buy-btn,
+		.remove-btn {
+			padding: 8px 12px;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			display: block;
+			width: 100%;
+			margin: 5px auto;
+		}
+
+		.buy-btn {
+			background-color: #4caf50;
+			color: #fff;
+		
+		}
+
+		.buy-btn:hover {
+			background-color: #45a049;
+			
+		}
+
+		.remove-btn {
+			background-color: #f44336;
+			color: #fff;
+		}
+
+		.remove-btn:hover {
+			background-color: #d32f2f;
+		}
+
+		.back-button {
+			text-align: center;
+			margin-top: 20px;
+			
+		}
+
+		.btn-back {
+			padding: 10px 20px;
+			text-decoration: none;
+			background-color: #333;
+			color: #fff;
+			border-radius: 4px;
+			transition: background-color 0.3s ease;
+		}
+
+		.btn-back:hover {
+			background-color: #555;
+		}
+		a{
+			text-decoration: none;
+		}
+		#fail{
+			color: red;
+			font-size: larger;
+		}
+		#pass{
+			color: green;
+			font-size: larger;
+		}
+		.mesg{
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		
+		
+	</style>
+	<script>
+
+		document.addEventListener("DOMContentLoaded", function () {
+			setTimeout(function () {
+				var mesg = document.querySelectorAll('.mesg')
+				mesg.forEach(function (element) {
+					element.style.display = 'none';
+				});
+			}, 2000);
+		});
+
+	</script>
+
+</head>
+
+<body>
+	<div class="cart-container">
+		<h1>Shopping Cart</h1>
+		<div class="mesg" id="fail" th:text="${fail}"></div>
+		<div class="mesg" id="pass" th:text="${pass}"></div>
+		<table class="cart-table">
+			<thead>
+				<tr>
+					<th>Product</th>
+					<th>Description</th>
+					<th>Image</th>
+					<th>Category</th>
+					<th>Price</th>
+					<th>Quantity</th>
+					<th>Amount</th>
+					<th>Buy</th>
+					<th>Remove</th>
+				</tr>
+			</thead>
+			
+			<tbody>
+				
+				<tr th:each="item:${cart.item}">
+					<span th:if="${item!=null}">
+					<td th:text="${item.productName}"></td>
+					<td th:text="${item.productDescription}"></td>
+					<td><img th:src="@{'data:image/jpeg;base64,'+${item.generateBase64Image()}}" alt="Product 1"></td>
+					<td th:text="${item.productCategory}"></td>
+					<td th:text="${item.productPrice}+'&#8377'"></td>
+					<td th:text="${item.productQuantity}"></td>
+					<td th:text="${item.amount}+'&#8377'"></td>
+					<td><a th:href="@{'/customer/buy-product/'+${item.itemid}}"><button class="buy-btn">Buy</button></a></td>
+					<td><a th:href="@{'/customer/cart-remove/'+${item.itemid}}"><button class="remove-btn">Remove</button></a></td>
+					</span>
+				</tr>
+				
+				<tr>
+				<td id="totalAmount" colspan="6">Total Amount:</td>
+				<td th:text="${cart.totalAmount}+'&#8377'"></td>
+				</tr>
+			</tbody>
+		</table>
+
+		<!-- Back button -->
+		<div class="back-button">
+			<a class="btn-back buyAll-btn" href="/customer/buyall-products">Buy All</a>
+			<a href="/customer-viewproduct" class="btn-back">Back to Shopping</a>
+		</div>
+	</div>
+</body>
+
+</html>

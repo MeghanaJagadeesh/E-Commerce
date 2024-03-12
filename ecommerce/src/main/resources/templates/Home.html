@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="ISO-8859-1">
+	<title>E-Commerce Home Page</title>
+	<style>
+		/* Global styles */
+		body {
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			margin: 0;
+			padding: 0;
+			background-color: #f9f9f9;
+			color: #333;
+		}
+
+		/* Navbar styles */
+		header {
+			background-color: #333;
+			color: #fff;
+			padding: 10px 20px;
+		}
+
+		.navbar {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+		
+		.logo{
+			display: flex;
+			flex-wrap: wrap;
+			flex-direction: row;
+		}
+
+		.logo img {
+			max-height: 80px;
+			border-radius: 50%;
+			padding: 0px;
+			border: white 2px solid;
+			width: 100px;
+		}
+		#brand{
+			position: relative;
+			left: 15px;
+			font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+			letter-spacing: 2px;
+		}
+		#logocontent{
+			font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+			letter-spacing: 2px;
+		}
+		.nav-links {
+			list-style: none;
+			display: flex;
+		}
+
+		.nav-links li {
+			margin-right: 20px;
+		}
+
+		.nav-links a {
+			color: #fff;
+			text-decoration: none;
+			font-weight: bold;
+			padding: 8px 15px;
+			border-radius: 5px;
+			transition: background-color 0.3s ease;
+		}
+
+		.nav-links a:hover {
+			background-color: #555;
+		}
+
+		/* General Styles */
+		.container {
+			text-align: center;
+			margin-top: 100px;
+			margin-bottom: 50px;
+		}
+
+		.aboutBox {
+			padding: 20px 30px;
+			border-radius: 6px;
+			background-color: #fff;
+			box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+			transition: transform 0.3s ease, box-shadow 0.3s ease;
+			max-width: 1200px;
+			margin: 0 auto;
+		}
+
+		input[type="checkbox"] {
+			display: none;
+		}
+
+		input[type="checkbox"]#aboutBtn:checked~.container #aboutBox {
+			animation: highlight 1s ease-in-out;
+		}
+
+		@keyframes highlight {
+
+			0%,
+			100% {
+				transform: scale(1);
+				box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+			}
+
+			50% {
+				transform: scale(1.1);
+				box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+			}
+		}
+
+		.custom-button {
+			display: inline-block;
+			padding: 30px 70px;
+			background-color: #333;
+			color: #fff;
+			text-decoration: none;
+			border-radius: 8px;
+			position: relative;
+			top: 70px;
+			left: 500px;
+			transition: background-color 0.3s ease;
+			font-size: 30px;
+			font-weight: bold;
+		}
+
+		.custom-button::after {
+			content: '\2192';
+			margin-left: 20px;
+			font-size: 35px;
+			font-weight: bold;
+		}
+
+		.custom-button:hover {
+			background-color: #555;
+		}
+
+		.listcontainer {
+			text-align: left;
+			padding: 20px;
+			border-radius: 8px;
+			width: 250px;
+			position: relative;
+			left: 50px;
+			background-color: #fff;
+		}
+
+		.listcontainer ul {
+			padding: 0;
+			list-style: none;
+			margin-left: 0;
+		}
+
+		.listcontainer li {
+			margin-bottom: 10px;
+		}
+
+		.list {
+			display: flex;
+			flex-wrap: wrap;
+			flex-direction: row;
+			justify-content: center;
+		}
+		
+		.outcome{
+			text-align: left;
+			padding: 20px;
+			border-radius: 8px;
+			width: 850px;
+			position: relative;
+			left: 200px;
+		}
+		.outcome ul {
+			padding: 0;
+			list-style: none;
+			margin-left: 0;
+			
+		}
+		#pass{
+			color: green;
+			font-size: large;
+			font-weight: bold;
+		}
+		#pass{
+			color: red;
+			font-size: large;
+			font-weight: bold;
+		}
+		.mesg{
+			position: relative;
+			left: 600px;
+			
+		}
+	</style>
+
+	<script>
+
+		document.addEventListener("DOMContentLoaded", function () {
+			setTimeout(function () {
+				var mesg = document.querySelectorAll('.mesg')
+				mesg.forEach(function (element) {
+					element.style.display = 'none';
+				});
+			}, 2000);
+		});
+
+	</script>
+
+</head>
+
+<body>
+
+	<header>
+		<nav class="navbar">
+			<div class="logo">
+				<img src="https://preview.redd.it/86rlwmn6scs81.png?width=640&crop=smart&auto=webp&s=9bce044c2cbad65c62319933e5ff3be543fb5281" alt="Ecommerce Logo">
+				<h2 id="brand">Cartify</h2>			
+			</div>
+			<ul class="nav-links">
+				<li><a><label for="aboutBtn">About Us</label></a></li>
+				<li><a href="/login">Login</a></li>
+				<li><a href="/customer/process-signup">Sign Up</a></li>
+				<li><a href="/logout">Logout</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<h2 style="position: absolute; left: 340px; ">Welcome to Our <span id="logocontent">Cartify</span> Ecommerce Shopping Application</h2>
+
+	<div class="mesg" id="pass" th:text="${pass}"></div>
+	<div class="mesg"  id="fail" th:text="${fail}"></div>
+	<div>
+		<a href="/customer-viewproduct" class="custom-button">View Products</a>
+	</div>
+
+	<input type="checkbox" id="aboutBtn">
+	<div class="container">
+		<div class="aboutBox" id="aboutBox">
+			<h2>About</h2>
+			<p>
+				Our ecommerce shopping application is a result of dedication, collaboration, and technical expertise.
+				Developed as part of implementing our skills, this platform showcases the implementation of Spring Boot
+				and Thymeleaf in creating a functional and efficient online shopping experience.
+			</p>
+			<h3>Project Objective</h3>
+			<p>The primary objective of this project is to demonstrate our understanding and application of key concepts
+				in software development. By utilizing Spring Boot's robust framework and Thymeleaf's templating engine,
+				we aimed to build an intuitive and responsive ecommerce platform.</p>
+			<h3>Technologies</h3>
+			<p>Java 16, Spring Boot, Thymeleaf template engine, Hibernate with JPA, MySQL, HTML, CSS, Javascript </p>
+			<h3>Features available based on the user role:</h3>
+			<div class="list">
+				<div class="listcontainer">
+					<p style="font-weight: bold;">Admin</p>
+					<li>Add Product</li>
+					<li>Product Authorization</li>
+					<li>Update Product</li>
+					<li>Delete Product</li>
+					<li>Fetch Product based on category</li>
+					<li>Fetch all Products</li>
+					<li>Customer Management</li>
+				</div>
+
+				<div class="listcontainer">
+					<p style="font-weight: bold;">Customer</p>
+					<li>View Product</li>
+					<li>Registering into System</li>
+					<li>Login into Website</li>
+					<li>Adding product to Cart</li>
+					<li>Placing Order</li>
+					<li>Payment</li>
+					<li>View Placed Order</li>
+				</div>
+			</div>
+
+			<h3>Learning Outcomes</h3>
+			<p>This project provided us with invaluable insights and hands-on experience in:</p>
+			<div class="outcome">
+				<li>Designing and developing a full-fledged web application using Spring Boot and Thymeleaf.</li>
+				<li>Implementing crucial ecommerce features, such as product display, user authentication, and database
+					management.</li>
+				<li>Understanding the importance of responsive design and user experience in web development.</li>
+			</div>
+		</div>
+
+	</div>
+</body>
+
+</html>

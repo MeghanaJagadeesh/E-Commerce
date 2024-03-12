@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>View Orders</title>
+	<style>
+		* {
+			font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+		}
+
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			background-color: #f9f9f9;
+			color: #333;
+		}
+
+		.cart-container {
+			max-width: 1200px;
+			margin: 20px auto;
+			padding: 20px;
+			background-color: #fff;
+			border-radius: 8px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		}
+
+		h1 {
+			text-align: center;
+			margin-bottom: 20px;
+		}
+
+		.cart-table {
+			width: 100%;
+			border-collapse: collapse;
+			margin-bottom: 20px;
+		}
+
+		.cart-table th,
+		.cart-table td {
+			border: 1px solid #ddd;
+			padding: 12px;
+			text-align: left;
+		}
+
+		.cart-table th {
+			background-color: #f0f0f0;
+			font-weight: bold;
+		}
+
+		.cart-table img {
+			max-width: 80px;
+			height: auto;
+			display: block;
+			margin: auto;
+		}
+
+		input[type="number"] {
+			width: 50px;
+			padding: 8px;
+			border-radius: 4px;
+			border: 1px solid #ccc;
+		}
+
+		.buy-btn,
+		.remove-btn {
+			padding: 8px 12px;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			display: block;
+			width: 100%;
+			margin: 5px auto;
+		}
+
+		.buy-btn {
+			background-color: #4caf50;
+			color: #fff;
+
+		}
+
+		.buy-btn:hover {
+			background-color: #45a049;
+
+		}
+
+		.back-button {
+			text-align: center;
+			margin-top: 20px;
+
+		}
+
+		.btn-back {
+			padding: 10px 20px;
+			text-decoration: none;
+			background-color: #333;
+			color: #fff;
+			border-radius: 4px;
+			transition: background-color 0.3s ease;
+		}
+
+		.btn-back:hover {
+			background-color: #555;
+		}
+
+		a {
+			text-decoration: none;
+		}
+
+		#fail {
+			color: red;
+			font-size: larger;
+		}
+
+		#pass {
+			color: green;
+			font-size: larger;
+		}
+
+		.mesg {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+	</style>
+	<script>
+
+		document.addEventListener("DOMContentLoaded", function () {
+			setTimeout(function () {
+				var mesg = document.querySelectorAll('.mesg')
+				mesg.forEach(function (element) {
+					element.style.display = 'none';
+				});
+			}, 2000);
+		});
+
+	</script>
+
+</head>
+
+<body>
+	<div class="cart-container">
+		<h1>View Oders Details</h1>
+		<div class="mesg" id="fail" th:text="${fail}"></div>
+		<div class="mesg" id="pass" th:text="${pass}"></div>
+		<table class="cart-table">
+			<thead>
+				<tr>
+					<th>Order Id</th>
+					<th>Payment Id</th>
+					<th>Order Date and Time</th>
+					<th>Payment Amount</th>
+					<th>Product Details</th>
+				</tr>
+			</thead>
+
+			<tbody>
+
+				<tr th:each="order:${orders}">
+					<td th:text="${order.order_id}"></td>
+					<td th:text="${order.payment_id}"></td>
+					<td th:text="${order.getDate()}"></td>
+					<td th:text="${order.amount}+'&#8377'"></td>
+					<td><a th:href="@{'/customer/view-ordered-products/'}+${order.id}"><button class=" buy-btn">View
+							Product</button></a></td>
+				</tr>
+			</tbody>
+		</table>
+
+		<!-- Back button -->
+		<div class="back-button">
+			<a href="/customer/view-cart" class="btn-back">Back to Cart</a>
+		</div>
+	</div>
+</body>
+
+</html>

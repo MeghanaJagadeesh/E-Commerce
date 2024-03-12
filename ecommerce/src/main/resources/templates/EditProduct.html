@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Product</title>
+    <style>
+        * {
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            width: 60%;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="file"],
+        select,
+        textarea,
+        input[type="date"] {
+            width: 100%;
+            padding: 12px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        textarea {
+            height: 100px;
+        }
+
+        .btn-add,
+        .btn-back {
+            padding: 12px 24px;
+            text-decoration: none;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-add {
+            background-color: #2ecc71;
+            margin-right: 15px;
+        }
+
+        .btn-back {
+            background-color: #e74c3c;
+        }
+
+        .btn-add:hover,
+        .btn-back:hover {
+            opacity: 0.85;
+        }
+
+        /* Styling for form elements */
+        input[type="file"] {
+            cursor: pointer;
+        }
+
+        input[type="file"]::-webkit-file-upload-button {
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="file"]::-webkit-file-upload-button:hover {
+            background-color: #2980b9;
+        }
+
+        select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            padding: 12px;
+            background-image: url('data:image/svg+xml;utf8,<svg fill="#555" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M7 10l5 5 5-5H7z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+            background-repeat: no-repeat;
+            background-position: 95% center;
+            border: 1px solid #ccc;
+        }
+
+        /* Custom styles for the dropdown arrow */
+        select:focus {
+            border-color: #2980b9;
+        }
+
+        /* Styling for the submit button */
+        input[type="submit"] {
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 12px 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #2980b9;
+        }
+        #error{
+			color: red;
+		}
+		
+		#pass{
+			color: green;
+			font-size: 20px;
+			font-weight: bold;
+			position: relative;
+			left: 280px;
+		}
+		.img{
+			max-width: auto;
+			height: 100px;
+			}
+    </style>
+    <script>
+
+		document.addEventListener("DOMContentLoaded", function () {
+			setTimeout(function () {
+				var mesg = document.querySelectorAll('.mesg')
+				mesg.forEach(function (element) {
+					element.style.display = 'none';
+				});
+			}, 2000);
+		});
+
+	</script>
+
+</head>
+
+<body>
+    <div class="container">
+		<div class="mesg" th:text="${pass}" id="pass"></div>
+		
+        <h1>Edit Product</h1>
+        
+        <form action="/admin/update-product" method="post" enctype="multipart/form-data" th:object="${product}">
+			<input type="hidden" th:field="*{id}">
+            <div class="form-group">
+                <label for="productName">Product Name:</label>
+                <input type="text" id="productName" name="productName" th:field="*{productName}" required>
+            </div>
+            <div class="form-group">
+                <label for="productImage">Product Image:</label>
+                <input type="file" id="productImage" name="productImage" accept="image/*" >
+                <img class="img" th:src="@{'data:image/jpeg;base64,'+${product.generateBase64Image()}}">
+                <div th:text="${error}" class="mesg" id="error"></div>
+            </div>
+            <div class="form-group">
+                <label for="productDescription">Description:</label>
+                <textarea id="productDescription" name="productDescription" th:field="*{productDescription}" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="productPrice">Price:</label>
+                <input type="text" id="productPrice" name="productPrice"  th:field="*{productPrice}" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label for="productStock">Stock:</label>
+                <input type="number" id="productStock" name="productStock" th:field="*{productStock}" required>
+            </div>
+            <div class="form-group">
+                <label for="productCategory">Category:</label>
+                <select id="productCategory" name="productCategory" th:field="*{productCategory}">
+                    <option value="Mobile">Mobile</option>
+                    <option value="Shoes">Shoes</option>
+                    <option value="Cloths">Cloths</option>
+                    <option value="Accessories">Accessories</option>
+                    <option value="Electric Device">Electric Device</option>
+                    <option value="Others">Others</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="dateAdded">Date of Updating the Product:</label>
+                <input type="date" id="dateAdded" name="dateAdded"  required>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Update" class="btn-add">
+                <a href="/admin/home" class="btn-back">Back</a>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

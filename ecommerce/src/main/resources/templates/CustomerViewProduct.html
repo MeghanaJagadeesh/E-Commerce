@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>E-commerce Home</title>
+	<style>
+		/* Global styles */
+
+		* {
+			font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+		}
+
+		body {
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			margin: 0;
+			padding: 0;
+			background-color: #f9f9f9;
+			color: #333;
+		}
+
+		/* Navbar styles */
+		header {
+			background-color: #333;
+			color: #fff;
+			padding: 8px 20px;
+		}
+
+		.navbar {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.logo {
+			display: flex;
+			flex-wrap: wrap;
+			flex-direction: row;
+		}
+
+		.logo img {
+			max-height: 80px;
+			border-radius: 50%;
+			padding: 0px;
+			border: white 2px solid;
+			width: 100px;
+		}
+
+		#brand {
+			position: relative;
+			left: 15px;
+			font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+			letter-spacing: 2px;
+		}
+
+		.nav-links {
+			list-style: none;
+			display: flex;
+		}
+
+		.nav-links li {
+			margin-right: 20px;
+		}
+
+		.nav-links a {
+			color: #fff;
+			text-decoration: none;
+			font-weight: bold;
+			padding: 8px 15px;
+			border-radius: 5px;
+			transition: background-color 0.3s ease;
+		}
+
+		.nav-links a:hover {
+			background-color: #555;
+		}
+
+		/* Products section */
+		.products {
+			height: max-content;
+			display: inline-block;
+			width: max-content;
+			display: flex;
+			flex-direction: row;
+
+		}
+
+		.section-container {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-around;
+			padding: 10px;
+		}
+
+		.product {
+			background-color: #fff;
+			border-radius: 8px;
+			box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+			overflow: hidden;
+			width: 300px;
+			margin: 20px;
+			transition: transform 0.3s ease-in-out;
+		}
+
+		.product:hover {
+			transform: translateY(-5px);
+		}
+
+		.product img {
+			width: 100%;
+			height: 290px;
+			object-fit: cover;
+			border-radius: 8px 8px 0 0;
+		}
+
+		.product-content {
+			padding: 2px 20px;
+		}
+
+		.product h2 {
+			font-size: 1.5em;
+			margin-bottom: 5px;
+			position: relative;
+			bottom: 15px;
+		}
+
+		.product p {
+			margin-bottom: 35px;
+			color: #666;
+			position: relative;
+			bottom: 15px;
+		}
+
+		.product p.price {
+			font-weight: bold;
+			color: #4CAF50;
+		}
+
+		.productDescrip {
+			color: green;
+			font-size: medium;
+			font-weight: bold;
+			padding: 0px;
+			position: relative;
+			bottom: 12px;
+		}
+
+		.quantity-controls {
+			display: flex;
+			align-items: center;
+			margin-bottom: 20px;
+		}
+
+		.quantity-btn {
+			padding: 8px 12px;
+			margin: 0 5px;
+			cursor: pointer;
+			background-color: #4CAF50;
+			color: white;
+			border: none;
+			border-radius: 4px;
+			font-size: 1em;
+		}
+
+		.quantity-input {
+			width: 80px;
+			height: 30px;
+			text-align: center;
+			border: 1px solid #ccc;
+			border-radius: 4px;
+			font-size: 1.2em;
+		}
+
+		.add-to-cart {
+			display: block;
+			position: relative;
+			bottom: 35px;
+			width: 100%;
+			padding: 12px;
+			background-color: #f44336;
+			color: white;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+			font-size: 1.2em;
+		}
+
+		.add-to-cart:hover {
+			background-color: #e53935;
+		}
+
+		h1 {
+			text-align: center;
+			margin-top: 30px;
+			margin-bottom: 20px;
+			font-size: 2em;
+			color: #333;
+		}
+
+		.link {
+			text-decoration: none;
+			color: inherit;
+		}
+
+		#fail {
+			color: red;
+			font-size: 25px;
+			font-weight: 500;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		#outofstock {
+			color: gray;
+			font-size: 12px;
+		}
+
+		#pass {
+			color: green;
+			font-weight: bold;
+			font-size: larger;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		#fail {
+			color: red;
+			font-weight: bold;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		a {
+			text-decoration: none;
+		}
+
+		#qty {
+			font-size: 17px;
+			font-weight: bold;
+			color: green;
+			padding: 5px 10px 0px 0px;
+		}
+
+		.priceQty {
+			display: flex;
+			flex-wrap: wrap;
+			flex-direction: row;
+			justify-content: space-between;
+			align-items: center;
+			position: relative;
+			bottom: 38px;
+		}
+
+		.priceDiv {
+			display: flex;
+			flex-wrap: wrap;
+			flex-direction: row;
+			height: 30px;
+			justify-content: flex-start;
+			position: relative;
+			bottom:4px;
+			font-size: 16px;
+		}
+
+		.priceSpan {
+			color: green;
+			font-size: medium;
+			font-weight: bold;
+		}
+		.price{
+			position: relative;
+			bottom: 15px; 
+			left: 6px;
+		}
+	</style>
+	<script>
+
+		document.addEventListener("DOMContentLoaded", function () {
+			setTimeout(function () {
+				var mesg = document.querySelectorAll('.mesg')
+				mesg.forEach(function (element) {
+					element.style.display = 'none';
+				});
+			}, 2000);
+		});
+	</script>
+
+</head>
+
+<body>
+	<header>
+		<nav class="navbar">
+			<div class="logo">
+				<img src="https://preview.redd.it/86rlwmn6scs81.png?width=640&crop=smart&auto=webp&s=9bce044c2cbad65c62319933e5ff3be543fb5281"
+					alt="Ecommerce Logo">
+				<h2 id="brand">Cartify</h2>
+			</div>
+			<ul class="nav-links">
+				<li><a href="/">About Us</a></li>
+				<li><a href="/login">Login</a></li>
+				<li><a href="/customer/process-signup">Sign Up</a></li>
+				<li><a href="/customer/view-cart">View Cart</a></li>
+				<li><a href="/customer/view-orders">View Orders</a></li>
+				<li><a href="/logout">Logout</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<main>
+		<h1>Welcome, Customers!</h1>
+		<div id="fail" class="mesg" th:text="${fail}"></div>
+		<div id="pass" class="mesg" th:text="${pass}"></div>
+		<div class="section-container">
+
+			<section class="products" th:each="product:${products}">
+				<div class="product">
+					<img th:src="@{'data:image/jpeg;base64,'+${product.generateBase64Image()}}">
+					<div class="product-content">
+						<h2 th:text="${product.productName}"></h2>
+						<label for="name" class="productDescrip">Product Description: </label>
+						<p th:text="${product.productDescription}"></p>
+						<aside class="priceQty">
+							<div class="priceDiv">
+								<span class="priceSpan"> Price : </span>
+								<p class="price" th:text="${product.productPrice}"></p>
+							</div>
+							<div class="quantity-controls">
+								<form action="/customer/add-cart" method="post">
+									<span id="qty">Qty.</span><input id="input" name="inputValue" type="number" min="1"
+										value="1" class="quantity-input">
+									<input name="id" th:attr="value = ${product.id}" type="hidden">
+
+									<span id="outofstock" th:text="${outofstock}"></span>
+							</div>
+						</aside>
+						<button class="add-to-cart">Add to Cart </button>
+						</form>
+					</div>
+				</div>
+			</section>
+		</div>
+	</main>
+
+</body>
+
+</html>

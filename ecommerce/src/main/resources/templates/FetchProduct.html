@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Fetch Product</title>
+	<style>
+		* {
+			font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+		}
+
+		body {
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			margin: 0;
+			padding: 0;
+			background-color: #f2f2f2;
+		}
+
+		.container {
+			width: 100%;
+			max-width: 600px;
+			margin: 50px auto;
+			text-align: center;
+			padding: 20px;
+			background-color: #fff;
+			border-radius: 8px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		}
+
+		h1 {
+			margin-bottom: 30px;
+			color: #333;
+		}
+
+		.form {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-wrap: wrap;
+			gap: 15px;
+		}
+
+		.select-category {
+			padding: 12px 20px;
+			font-size: 16px;
+			border: 2px solid #3498db;
+			border-radius: 6px;
+			background-color: #fff;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			outline: none;
+			transition: border-color 0.3s ease;
+		}
+
+		.select-category:focus {
+			border-color: #2980b9;
+		}
+
+		.find-button,
+		.back-button {
+			padding: 12px 30px;
+			font-size: 16px;
+			border: none;
+			border-radius: 6px;
+			cursor: pointer;
+			outline: none;
+			transition: transform 0.2s ease, opacity 0.2s ease;
+		}
+
+		.find-button {
+			background-color: #3498db;
+			color: #fff;
+		}
+
+		.find-button:hover {
+			transform: translateY(-3px);
+		}
+
+		.back-button {
+			background-color: #e74c3c;
+			color: #fff;
+		}
+
+		.back-button:hover {
+			transform: translateY(-3px);
+		}
+
+		#fail {
+			color: red;
+			font-size: large;
+		}
+
+		#pass {
+			color: green;
+			font-size: large;
+		}
+
+		@media screen and (max-width: 480px) {
+			.container {
+				padding: 10px;
+			}
+
+			h1 {
+				font-size: 24px;
+				margin-bottom: 20px;
+			}
+
+			.form {
+				flex-direction: column;
+			}
+
+			.select-category {
+				width: 100%;
+			}
+
+			.find-button,
+			.back-button {
+				width: 100%;
+			}
+		}
+		#fail{
+			color: red;
+			font-size: large;
+		}
+		#pass{
+			color: green;
+			font-size: large;
+		}
+	</style>
+	<script>
+
+		document.addEventListener("DOMContentLoaded", function () {
+			setTimeout(function () {
+				var mesg = document.querySelectorAll('.mesg')
+				mesg.forEach(function (element) {
+					element.style.display = 'none';
+				});
+			}, 2000);
+		});
+
+	</script>
+
+</head>
+
+<body>
+	<div class="container">
+		<div id="fail" class="mesg" th:text="${fail}" ></div>
+		<div id="pass" class="mesg" th:text="${pass}"></div>
+		<h1>Admin Fetch Product</h1>
+		
+		<form class="form" method="post" action="/admin/fetch-product">
+
+			<select id="productCategory" class="select-category" name="productCategory">
+				<option value="mobile">Mobile</option>
+				<option value="shoes">Shoes</option>
+				<option value="cloths">Cloths</option>
+				<option value="accessories">Accessories</option>
+				<option value="electric-device">Electric Device</option>
+				<option value="others">Others</option>
+			</select>
+			<button id="find" class="find-button">Find</button>
+			<button id="back" class="back-button">Back</button>
+		</form>
+	</div>
+</body>
+
+</html>

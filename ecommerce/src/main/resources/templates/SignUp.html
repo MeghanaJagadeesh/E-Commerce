@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Signup Page</title>
+	<style>
+		*{
+			font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+		}
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 120vh;
+			background-color: #f0f0f0;
+		}
+
+		.signup-form {
+			background-color: #fff;
+			padding: 30px;
+			border-radius: 8px;
+			box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+			width: 380px;
+			max-width: 90%;
+		}
+
+		h2 {
+			text-align: center;
+			margin-bottom: 15px;
+			color: #333;
+		}
+
+		.form-group {
+			margin-bottom: 20px;
+		}
+
+		label {
+			display: block;
+			margin-bottom: 8px;
+			color: #555;
+		}
+
+		input[type="text"],
+		input[type="email"],
+		input[type="password"],
+		input[type="tel"],
+		input[type="date"],
+		select {
+			width: 95%;
+			padding: 12px;
+			border-radius: 6px;
+			border: 1px solid #ccc;
+			font-size: 16px;
+		}
+
+		.error {
+			color: red;
+			font-size: small;
+		}
+
+		button {
+			width: 100%;
+			padding: 12px;
+			border: none;
+			border-radius: 6px;
+			background-color: #007bff;
+			color: #fff;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+			font-size: 16px;
+		}
+
+		button:hover {
+			background-color: #0056b3;
+		}
+		#acc-error{
+			font-size: 16px;
+			position: relative;
+			left: 100px;
+		}
+	</style>
+	<script>
+
+		document.addEventListener("DOMContentLoaded", function () {
+			setTimeout(function () {
+				var mesg = document.querySelectorAll('.mesg')
+				mesg.forEach(function (element) {
+					element.style.display = 'none';
+				});
+			}, 2000);
+		});
+
+	</script>
+
+</head>
+
+<body>
+	<form action="/customer/process-signup" th:object="${customer}" method="post">
+		<div class="signup-form">
+			<div class="error mesg" id="acc-error" th:text="${fail}"></div>
+			<h2>Sign Up</h2>
+			
+
+			<form id="signupForm">
+				<div class="form-group">
+					<label for="name">Name</label>
+					<input type="text" id="name" th:field="*{name}" name="name">
+					<div class="error" th:errors="*{name}"></div>
+				</div>
+				
+				<div class="form-group">
+					<label for="email">Email</label>
+					<input type="email" id="email" th:field="*{email}" name="email">
+					<div class="error" th:errors="*{email}"></div>
+				</div>
+				
+				<div class="form-group">
+					<label for="password">Password</label>
+					<input type="password" id="password" th:field="*{password}" name="password">
+					<div class="error" th:errors="*{password}"></div>
+				</div>
+				
+				<div class="form-group">
+					<label for="mobile">Mobile Number</label>
+					<input type="tel" id="mobile" th:field="*{phoneNum}" name="phoneNum" minlength="10" maxlength="13">
+					<div class="error" th:errors="*{phoneNum}"></div>
+		</div>
+			<div class="form-group">
+					<label for="dob">Date of Birth</label>
+					<input type="date" id="dob" th:field="*{dob}" name="dob">
+					<div class="error" th:errors="*{dob}"></div>
+				</div>
+				
+				<div class="form-group">
+					<label for="gender">Gender</label>
+					<select id="gender" name="gender">
+						<option value="male">Male</option>
+						<option value="female">Female</option>
+						<option value="other">Other</option>
+					</select>
+				</div>
+				<button type="submit">Sign Up</button>
+
+			</form>
+		</div>
+	</form>
+</body>
+
+</html>
